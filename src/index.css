@@ -1,0 +1,98 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+#navbar li a{
+    @apply hover:text-[#696969] duration-500 text-sm;
+}
+#intro{
+    @apply leading-8;
+}
+#intro p {
+    @apply hover:text-black text-blue-600;
+}
+.menu-item{
+    @apply text-black pl-5 pt-3 border-r-[1px] ;
+}
+.menu-item-title{
+    @apply font-bold text-base pb-2;
+}
+#navbar ul li a span {
+    @apply uppercase;
+}
+.nav-bar{
+    @apply text-center group-hover:text-[#00ccaa] uppercase inline-block;
+}
+.product{
+    @apply bg-white ml-2 my-1 hover:border-[1px] border border-transparent hover:border-gray-400  text-center relative overflow-hidden pt-4;
+}
+.product-name{
+    @apply mb-2 font-bold text-lg mx-auto hover:text-blue-600;
+}
+.product-price{
+    @apply text-red-700 mr-5 font-bold text-lg;
+}
+.product-image{
+    @apply overflow-hidden ;
+}
+.product-image img{
+    @apply mx-auto w-[170px] group-hover:scale-105 transition-all;
+}
+.add-to-cart{
+    @apply bg-red-700 min-w-full bottom-0 translate-y-[120px] ease-in-out absolute animate-[fadeout] duration-[1s];
+}
+
+.product:hover .add-to-cart{
+    @apply translate-y-[0px] ease-in-out animate-[fadein] duration-[1s];
+}
+.catebox{
+    @apply text-center border-2 pt-4 pb-4 hover:border-slate-900;
+}
+.box-accessory{
+    @apply flex flex-row mx-[13px];
+}
+.accessory{
+    @apply  border-[1px] text-center hover:border-[3px] mx-auto w-[145px] h-[145px];
+} 
+.service:hover{
+    @apply scale-105 transition-all;
+}
+.radio{
+    @apply  text-center border-[1px] rounded-md hover:bg-slate-200;
+}
+.phone-color{
+    @apply mx-auto mt-3 border-[1px] p-2 rounded-md hover:border-red-700 ;
+}
+.box-Promo{
+    @apply border-[1px] mt-5 ;
+}
+.boxPromo-list{
+    @apply border-b-[1px] py-2 pl-2;
+}
+.content-promo{
+    @apply text-sm ml-3 leading-5 grid;
+}
+#more-content{
+    @apply  text-[14px];
+}
+#read-more{
+    @apply p-1 mb-3 underline hover:text-blue-600
+}
+.product-parameter{
+    @apply border-[1px] ml-4 w-[400px] h-full
+}
+.parameter{
+    @apply grid grid-cols-2 
+}
+.detail-items{
+    @apply font-medium
+}
+.content-prameter{
+    @apply text-[13px] ml-3 my-auto
+}
+#table{
+    @apply w-[1200px] mx-auto text-center
+}
+#table td th{
+    @apply border-black
+}
