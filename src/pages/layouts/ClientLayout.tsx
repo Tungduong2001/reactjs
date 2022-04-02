@@ -1,5 +1,7 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Outlet } from 'react-router-dom'
+import { listCategory } from '../../api/category'
+import { CategoryType } from '../../types/category'
 import Banner from '../conponentPageClient/Banner'
 import CateBox from '../conponentPageClient/CateBox'
 import Footer from '../conponentPageClient/Footer'
@@ -8,23 +10,18 @@ import Highlight from '../conponentPageClient/Highlight'
 import Hot from '../conponentPageClient/Hot'
 import Service from '../conponentPageClient/Service'
 
-type Props = {}
-
+type Props = {
+  category: CategoryType[]
+}
 const ClientLayout = (props: Props) => {
   return (
     <div className='bg-red-700'>
-      <header>
-        <Header />
-
+      <header className='bg-red-700'>
+        <Header category={props.category} />
       </header>
-      <Banner />
-      <Highlight />
-      <CateBox />
       <main>
         <Outlet />
       </main>
-      <Hot />
-      <Service />
       <footer>
         <Footer />
       </footer>

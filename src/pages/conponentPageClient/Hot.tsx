@@ -5,7 +5,7 @@ type Props = {}
 
 const Hot = (props: Props) => {
     return (
-        <div className=" bg-white border-8 rounded-md mt-5 mx-auto w-[1200px] ">
+        <div className=" bg-white border-8 rounded-md mt-5 mx-auto w-[1200px] pb-3">
             <div className="tilte-accessory">
                 <h2 className="uppercase text-lg ml-3 font-bold my-3">Phụ kiện hot</h2>
             </div>

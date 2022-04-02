@@ -4,6 +4,9 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import { signin } from '../api/user'
 import { UserType } from '../types/user'
+import { authenticated, isAuthenticate } from '../utils/localStorage'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 type Inputs = {
     email: string,
     password: string
@@ -14,10 +17,28 @@ type Inputs = {
 const Signin = () => {
     const { register, handleSubmit, formState: { errors } } = useForm<Inputs>()
     const navigate = useNavigate();
-    const onSubmit: SubmitHandler<Inputs> = async data => {
-        const { data: user } = await signin(data)
 
-        navigate("/")
+    const onSubmit: SubmitHandler<Inputs> = async data => {
+        try {
+            const { data: user } = await signin(data)
+            authenticated(user, () => {
+                const { user: { role } } = isAuthenticate()
+                if (role == 1) {
+                    toast.success("Đăng nhập thành công")
+                    setTimeout(function () {
+                        navigate("/admin")
+                    }, 2000)
+                } else {
+                    toast.success("Đăng nhập thành công")
+                    setTimeout(function () {
+                        navigate("/")
+                    }, 2000)
+                }
+            })
+        } catch (error) {
+            toast.error("Tài khoản hoặc mật khẩu không chính xác")
+        }
+
     }
 
     return (
@@ -35,11 +56,13 @@ const Signin = () => {
                         <div className="rounded-md shadow-sm -space-y-px">
                             <div>
                                 <label htmlFor="email-address" className="sr-only">Email address</label>
-                                <input id="email" {...register('email')} type="email" autoComplete="email" required className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="Email address" />
+                                <input id="email" {...register('email', { required: true })} type="email" autoComplete="email" className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="Email address" />
+                                {errors.email && <div className='text-red-600'>Không được để trống</div>}
                             </div>
                             <div>
                                 <label htmlFor="password" className="sr-only">Password</label>
-                                <input id="password" {...register('password')} type="password" autoComplete="current-password" required className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="Password" />
+                                <input id="password" {...register('password', { required: true })} type="password" autoComplete="current-password" className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="Password" />
+                                {errors.email && <div className='text-red-600'>Không được để trống</div>}
                             </div>
                         </div>
                         <div className="flex items-center justify-between">
@@ -73,7 +96,7 @@ const Signin = () => {
                     </form>
                 </div>
             </div>
-
+            <ToastContainer />
         </div>
     )
 }

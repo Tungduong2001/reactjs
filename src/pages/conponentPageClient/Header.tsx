@@ -1,9 +1,24 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
-
-type Props = {}
+import { Link, NavLink, useNavigate } from 'react-router-dom'
+import { isAuthenticate } from '../../utils/localStorage'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { CategoryType } from '../../types/category';
+type Props = {
+    category: CategoryType[]
+}
 
 const Header = (props: Props) => {
+    console.log(props.category);
+
+    const navigate = useNavigate()
+    const logout = () => {
+        toast.success("Đăng xuất thành công")
+        localStorage.removeItem('user')
+        setTimeout(() => {
+            navigate('/login')
+        }, 1000)
+    }
     return (
         <div>
             <div className="header-top bg-red-700 flex justify-between h-[80px] w-[1200px] m-auto">
@@ -39,11 +54,33 @@ const Header = (props: Props) => {
                         </NavLink>
                     </div>
                     <div className="signin pl-5">
+                        {isAuthenticate() ?
+                            <div>
+                                {isAuthenticate().user.role == 1 ?
+                                    <div>
+                                        <Link to="/admin">
+                                            <i className="fas fa-user text-white" />
+                                            <p className="text-white text-xs">{isAuthenticate().user.name}</p>
+                                        </Link>
+                                        <Link to=''><p onClick={() => logout()
+                                        } className='opacity-0 hover:opacity-100 text-white text-xs'>Đăng xuất</p></Link>
+                                    </div>
+                                    : <div>
+                                        <Link to="/">
+                                            <i className="fas fa-user text-white" />
+                                            <p className="text-white text-xs">{isAuthenticate().user.name}</p>
+                                        </Link>
+                                        <Link to=''><p onClick={() => logout()
+                                        } className='opacity-0 hover:opacity-100 text-white text-xs'>Đăng xuất</p></Link>
+                                    </div>
+                                }
 
-                        <NavLink to="/login">
-                            <i className="fas fa-user text-white" />
-                            <p className="text-white text-xs">Đăng Nhập</p>
-                        </NavLink>
+                            </div>
+
+                            : <Link to="/login">
+                                <i className="fas fa-user text-white" />
+                                <p className="text-white text-xs">Đăng Nhập</p>
+                            </Link>}
 
                     </div>
                 </div>
@@ -60,7 +97,11 @@ const Header = (props: Props) => {
                                 <ul className="menu-item w-[500px]">
                                     <li className="menu-item-title">HÃNG SẢN XUẤT</li>
                                     <div className="menu-item-info grid grid-cols-3 text-sm leading-7 mb-4">
-
+                                        {props.category?.map((item, index) => {
+                                            return (
+                                                <div key={index}><a href={`/category/${item._id}`}>{item.name}</a></div>
+                                            )
+                                        })}
                                     </div>
                                     <li className="menu-item-title"><NavLink to=''>ĐỒNG HỒ THÔNG MINH</NavLink></li>
                                     <div className="menu-item-info grid grid-cols-3 text-sm leading-7 ">
@@ -326,6 +367,8 @@ const Header = (props: Props) => {
                     </ul>
                 </nav>
             </div>
+            <ToastContainer />
+
         </div>
     )
 }
