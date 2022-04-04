@@ -10,7 +10,7 @@ import DashboardPage from './pages/DashboardPage'
 import ProductManage from './pages/ProductManage'
 import ProductDetail from './pages/ProductDetail'
 import ProductAdd from './pages/ProductAdd'
-import { add, list, remove, update } from './api/product'
+import { add, list, remove, searchProduct, update } from './api/product'
 import ProductEdit from './pages/ProductEdit'
 import PrivateRouter from './components/PrivateRouter'
 import Signup from './pages/Signup'
@@ -24,10 +24,13 @@ import CategoryPage from './pages/CategoryPage'
 import UserManage from './pages/UserManage'
 import { UserType } from './types/user'
 import { ListUsers, removeUser } from './api/user'
+import Search from './pages/FormSearch'
+import SearchPage from './pages/SearchPage'
 function App() {
     const [products, setProducts] = useState<ProductType[]>([]);
     const [category, setCategories] = useState<CategoryType[]>([]);
     const [users, setUsers] = useState<UserType[]>([]);
+    const [search, setSearch] = useState<ProductType[]>([]);
 
     useEffect(() => {
         const getProducts = async () => {
@@ -95,6 +98,11 @@ function App() {
         }
     }
 
+    const onHandleSearch = async (key: string) => {
+        const { data } = await searchProduct(key)
+
+        setSearch(data)
+    }
     return (
         <div className='App'>
             {/* <header>
@@ -109,7 +117,7 @@ function App() {
 
             <main>
                 <Routes>
-                    <Route path='/' element={<ClientLayout category={category} />}>
+                    <Route path='/' element={<ClientLayout category={category} search={onHandleSearch} />}>
                         <Route index element={<HomePage products={products} />} />
                         <Route path='product'>
                             <Route index element={<ProductPage />} />
@@ -117,6 +125,7 @@ function App() {
                         </Route>
                         <Route path='about' element={<AboutPage />} />
                         <Route path='category/:id' element={<CategoryPage />} />
+                        <Route path='search' element={<SearchPage product={search} />} />
                     </Route>
                     <Route path='admin' element={<PrivateRouter><AdminLayout /></PrivateRouter>}>
                         <Route index element={<Navigate to="/admin/dashboard" />} />
@@ -133,8 +142,6 @@ function App() {
                             <Route index element={<Category onRemoveCategory={onHandleRemoveCate} category={category} onAddCategory={onHandleAddCate} />} />
                         </Route>
                     </Route>
-
-
                     <Route path='login' element={<Signin />} />
                     <Route path='signup' element={<Signup />} />
                 </Routes>

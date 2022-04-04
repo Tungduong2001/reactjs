@@ -11,13 +11,14 @@ import Hot from '../conponentPageClient/Hot'
 import Service from '../conponentPageClient/Service'
 
 type Props = {
-  category: CategoryType[]
+  category: CategoryType[],
+  search: (key: string) => void
 }
 const ClientLayout = (props: Props) => {
   return (
     <div className='bg-red-700'>
       <header className='bg-red-700'>
-        <Header category={props.category} />
+        <Header category={props.category} search={props.search} />
       </header>
       <main>
         <Outlet />

@@ -4,12 +4,13 @@ import { isAuthenticate } from '../../utils/localStorage'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { CategoryType } from '../../types/category';
+import Search from '../FormSearch';
 type Props = {
-    category: CategoryType[]
+    category: CategoryType[],
+    search: (key: string) => void
 }
 
 const Header = (props: Props) => {
-    console.log(props.category);
 
     const navigate = useNavigate()
     const logout = () => {
@@ -27,10 +28,7 @@ const Header = (props: Props) => {
                         <img src="https://fptshop.com.vn/Content/Landing/logo-mb.png" width="150px" />
                     </NavLink>
                 </figure>
-                <form action="/search" className="w-[700px] mt-5 pl-10 flex ">
-                    <input name="keyword" type="text" className="h-10 w-10/12 pl-3 rounded-sm" placeholder="Nhập tên điện thoại, máy tính, phụ kiện... cần tìm" />
-                    <button className="h-10"><i className="fas fa-search bg-[#333333] text-white py-3 px-4 rounded-sm" /></button>
-                </form>
+                <Search onSearch={props.search} />
                 <div className="flex mt-5 text-center">
                     <div className="news pr-5 ">
                         <NavLink to=''>
