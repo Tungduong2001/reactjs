@@ -9,7 +9,8 @@ import Hot from './conponentPageClient/Hot';
 import Service from './conponentPageClient/Service';
 
 type HomePageProps = {
-  products: ProductType[];
+  products: ProductType[]
+  onAddToCart: (cart: any) => void
 }
 
 const HomePage = (props: HomePageProps) => {
@@ -33,7 +34,7 @@ const HomePage = (props: HomePageProps) => {
                 </div>
               </Link>
               <div className="add-to-cart">
-                <button className="cartPhone" ><p className=" text-white hover:text-teal-600"> Thêm vào giỏ hàng</p></button>
+                <button className="cartPhone" onClick={() => props.onAddToCart(item._id)} ><p className=" text-white hover:text-teal-600"> Thêm vào giỏ hàng</p></button>
               </div>
             </div>
           })}

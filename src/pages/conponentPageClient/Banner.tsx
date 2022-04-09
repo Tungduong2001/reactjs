@@ -5,7 +5,7 @@ type Props = {}
 
 const Banner = (props: Props) => {
     return (
-        <div className=" mx-auto w-[1200px] bg-red-700 my-11">
+        <div className=" mx-auto w-[1200px] my-11">
             <NavLink to=''>
                 <img className="mx-auto" src="https://images.fpt.shop/unsafe/fit-in/filters:quality(80):fill(transparent)/fptshop.com.vn/Uploads/images/2015/CTKM-Voucher/Tophead-des.png" />
             </NavLink>

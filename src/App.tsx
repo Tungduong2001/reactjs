@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import type { ProductType } from './types/product'
-import { Navigate, Route, Routes } from 'react-router-dom'
+import { Navigate, Route, Routes, useNavigate } from 'react-router-dom'
 import HomePage from './pages/HomePage'
 import ProductPage from './pages/ProductPage'
 import AboutPage from './pages/AboutPage'
@@ -10,7 +10,7 @@ import DashboardPage from './pages/DashboardPage'
 import ProductManage from './pages/ProductManage'
 import ProductDetail from './pages/ProductDetail'
 import ProductAdd from './pages/ProductAdd'
-import { add, list, remove, searchProduct, update } from './api/product'
+import { add, list, read, remove, searchProduct, update } from './api/product'
 import ProductEdit from './pages/ProductEdit'
 import PrivateRouter from './components/PrivateRouter'
 import Signup from './pages/Signup'
@@ -26,11 +26,14 @@ import { UserType } from './types/user'
 import { ListUsers, removeUser } from './api/user'
 import Search from './pages/FormSearch'
 import SearchPage from './pages/SearchPage'
+import { addToCart, decreaseItemInCart, increaseItemInCart, removeItemInCart } from './utils/cart'
+import CartPage from './pages/CartPage'
 function App() {
     const [products, setProducts] = useState<ProductType[]>([]);
     const [category, setCategories] = useState<CategoryType[]>([]);
     const [users, setUsers] = useState<UserType[]>([]);
     const [search, setSearch] = useState<ProductType[]>([]);
+    const [cart, setCart] = useState<ProductType[]>([]);
 
     useEffect(() => {
         const getProducts = async () => {
@@ -103,6 +106,29 @@ function App() {
 
         setSearch(data)
     }
+    const onHandleAddToCart = async (id: number) => {
+        const { data } = await read(id)
+        addToCart({ ...data, quantity: 1 }, function () {
+            toast.success(`Thêm ${data.name} vào giỏ hàng thành công!`)
+            setCart(JSON.parse(localStorage.getItem('cart') as string))
+        })
+    }
+    const onHandleIncreaseItemInCart = (id: number) => {
+        increaseItemInCart(id, () => {
+            setCart(JSON.parse(localStorage.getItem('cart') as string))
+        })
+    }
+    const onHandleDecreaseItemInCart = (id: number) => {
+        decreaseItemInCart(id, () => {
+            setCart(JSON.parse(localStorage.getItem('cart') as string))
+        })
+    }
+
+    const onHandleRemoveCart = (id: number) => {
+        removeItemInCart(id, () => {
+            setCart(JSON.parse(localStorage.getItem('cart') as string))
+        })
+    }
     return (
         <div className='App'>
             {/* <header>
@@ -118,7 +144,7 @@ function App() {
             <main>
                 <Routes>
                     <Route path='/' element={<ClientLayout category={category} search={onHandleSearch} />}>
-                        <Route index element={<HomePage products={products} />} />
+                        <Route index element={<HomePage onAddToCart={onHandleAddToCart} products={products} />} />
                         <Route path='product'>
                             <Route index element={<ProductPage />} />
                             <Route path=':id' element={<ProductDetail />} />
@@ -126,6 +152,7 @@ function App() {
                         <Route path='about' element={<AboutPage />} />
                         <Route path='category/:id' element={<CategoryPage />} />
                         <Route path='search' element={<SearchPage product={search} />} />
+                        <Route path='cart' element={<CartPage onRemoveCart={onHandleRemoveCart} onDecreaseItemInCart={onHandleDecreaseItemInCart} onIncreaseItemInCart={onHandleIncreaseItemInCart} />} />
                     </Route>
                     <Route path='admin' element={<PrivateRouter><AdminLayout /></PrivateRouter>}>
                         <Route index element={<Navigate to="/admin/dashboard" />} />

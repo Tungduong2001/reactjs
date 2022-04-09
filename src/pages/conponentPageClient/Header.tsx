@@ -22,7 +22,7 @@ const Header = (props: Props) => {
     }
     return (
         <div>
-            <div className="header-top bg-red-700 flex justify-between h-[80px] w-[1200px] m-auto">
+            <div className="header-top flex justify-between h-[80px] w-[1200px] m-auto">
                 <figure className="logo pt-5">
                     <NavLink to="/">
                         <img src="https://fptshop.com.vn/Content/Landing/logo-mb.png" width="150px" />
