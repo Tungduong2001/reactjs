@@ -6,6 +6,7 @@ import Banner from './conponentPageClient/Banner';
 import CateBox from './conponentPageClient/CateBox';
 import Hot from './conponentPageClient/Hot';
 import Service from './conponentPageClient/Service';
+import SlideShow from './conponentPageClient/SlideShow';
 
 type HomePageProps = {
   products: ProductType[]
@@ -16,6 +17,7 @@ const HomePage = (props: HomePageProps) => {
   return (
     <div className='bg-red-700'>
       <Banner />
+      <SlideShow />
       <CateBox />
       <div className=" bg-white border-8 rounded-md mt-5 mx-auto w-[1200px] pb-5">
         <p className=" text-[#cd1817] font-black text-lg uppercase ml-2 mt-4 mb-4">Sản phẩm</p>

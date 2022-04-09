@@ -128,7 +128,7 @@
 
 .my-slider-button .swiper-wrapper .swiper-slide {
     border: 1px solid #efefef;
-    height: 60px;
+    height: 50px;
 }
 
 .my-slider-button .swiper-wrapper .swiper-slide:hover {
@@ -137,4 +137,10 @@
 }
 .my-slider-button .swiper-wrapper .swiper-slide.swiper-slide-thumb-active {
     border-bottom: 4px solid brown;
+    color: black;
+    font-weight: bold;
+}
+.promotion {
+    
+    text-align: center;
 }

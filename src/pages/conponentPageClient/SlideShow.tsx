@@ -17,7 +17,7 @@ const SlideShow = (props: Props) => {
     const [thumbsSwiper, setThumbsSwiper] = React.useState<any>(null);
 
     return (
-        <div>
+        <div className='bg-white border-8 rounded-md mx-auto w-[1200px] mt-6'>
             <Swiper
                 spaceBetween={10}
                 navigation={true}
@@ -54,22 +54,22 @@ const SlideShow = (props: Props) => {
                 className="my-slider-button"
             >
                 <SwiperSlide>
-                    <div>iPhone 13 Pro Max lì xì đến 6 triệu</div>
+                    <div className='promotion'>iPhone 13 Pro Max lì xì đến 6 triệu</div>
                 </SwiperSlide>
                 <SwiperSlide>
-                    <div>Sắm vivo lì xì đến 1,5 triệu</div>
+                    <div className='promotion'>Sắm vivo lì xì đến 1,5 triệu</div>
                 </SwiperSlide>
                 <SwiperSlide>
-                    <div>Hàng gia dụng lì xì đến 6 triệu</div>
+                    <div className='promotion'>Hàng gia dụng lì xì đến 6 triệu</div>
                 </SwiperSlide>
                 <SwiperSlide>
-                    <div>Laptop giảm ngay 10%+bảo hành đến 3 năm</div>
+                    <div className='promotion'>Laptop giảm ngay 10%+bảo hành đến 3 năm</div>
                 </SwiperSlide>
                 <SwiperSlide>
-                    <div>Đặt trước Redmi Note 11 giảm 500.000đ</div>
+                    <div className='promotion'>Đặt trước Redmi Note 11 giảm 500.000đ</div>
                 </SwiperSlide>
                 <SwiperSlide>
-                    <div>Sử dụng Xiaomi lì xì đến 6 triệu</div>
+                    <div className='promotion'>Sử dụng Xiaomi lì xì đến 6 triệu</div>
                 </SwiperSlide>
             </Swiper>
             {/* <Slide easing="ease"> */}
