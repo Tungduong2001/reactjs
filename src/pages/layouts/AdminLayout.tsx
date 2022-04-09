@@ -1,6 +1,6 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom'
-import HeaderDashboard from '../componentPageAdmin/HeaderDashBoard'
+import HeaderDashboard from '../componentPageAdmin/HeaderDashboard'
 
 type Props = {}
 

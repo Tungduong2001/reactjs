@@ -57,7 +57,7 @@ const UserManage = (props: Props) => {
                                                 {item.role == 1 ? "Quản trị" : "Khách hàng"}
                                             </td>
                                             <td className="px-6 py-3 text-right">
-                                                <button className="btn-delete border font-normal text-[12px] uppercase hover:bg-gray-600 hover:text-white duration-300 border-gray-400 rounded px-5 py-1" onClick={() => props.onRemove(item._id)}>Delete</button>
+                                                <button className="btn-delete border font-normal text-[12px] uppercase hover:bg-gray-600 hover:text-white duration-300 border-gray-400 rounded px-5 py-1" onClick={() => props.onRemove(item._id!)}>Delete</button>
                                             </td>
                                         </tr>
                                     })}

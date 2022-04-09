@@ -1,17 +1,17 @@
 import React from 'react'
 import 'react-slideshow-image/dist/styles.css'
-import { Slide } from 'react-slideshow-image';
+// import { Slide } from 'react-slideshow-image';
 type Props = {}
 
 const SlideShow = (props: Props) => {
     return (
         <div>
-            <Slide easing="ease">
-                <div className="each-slide">
-                    <div style={{ 'backgroundImage': `url(https://cdn.hoanghamobile.com/i/home/Uploads/2022/02/21/banner-laptop-web.jpg)` }}>
-                    </div>
+            {/* <Slide easing="ease"> */}
+            <div className="each-slide">
+                <div style={{ 'backgroundImage': `url(https://cdn.hoanghamobile.com/i/home/Uploads/2022/02/21/banner-laptop-web.jpg)` }}>
                 </div>
-                <div className="each-slide">
+            </div>
+            {/* <div className="each-slide">
                     <div style={{ 'backgroundImage': `url(https://cdn.hoanghamobile.com/i/home/Uploads/2022/03/23/tecno-spark-8c-01.jpg)` }}>
                     </div>
                 </div>
@@ -26,8 +26,8 @@ const SlideShow = (props: Props) => {
                 <div className="each-slide">
                     <div style={{ 'backgroundImage': `url(https://cdn.hoanghamobile.com/i/home/Uploads/2022/03/16/web1200.png)` }}>
                     </div>
-                </div>
-            </Slide>
+                </div> */}
+            {/* </Slide> */}
         </div>
     )
 }

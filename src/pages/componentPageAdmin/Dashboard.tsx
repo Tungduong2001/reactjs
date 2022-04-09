@@ -1,5 +1,5 @@
 import React from 'react'
-import HeaderDashboard from './HeaderDashBoard'
+import HeaderDashboard from './HeaderDashboard'
 
 type Props = {}
 
