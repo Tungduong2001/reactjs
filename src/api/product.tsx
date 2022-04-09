@@ -7,8 +7,13 @@ export const list = () => {
     return instance.get(url);
 }
 export const remove = (id: number) => {
-    const url = `/product/${id}`;
-    return instance.delete(url);
+    const { token, user } = isAuthenticate()
+    const url = `/product/${id}/${user._id}`;
+    return instance.delete(url, {
+        headers: {
+            "Authorization": `Bearer ${token}`
+        }
+    });
 }
 export const add = (product: ProductType) => {
     const { token, user } = isAuthenticate()
