@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useNavigate, useParams } from 'react-router-dom'
-import { read } from '../api/product'
+import { read, uploadImage } from '../api/product'
 import { CategoryType } from '../types/category'
 import { ProductType } from '../types/product'
 
@@ -21,18 +21,47 @@ const ProductEdit = (props: ProductEditProps) => {
     const { register, handleSubmit, formState: { errors }, reset } = useForm<FormInputs>()
     const { id } = useParams();
     const navigate = useNavigate();
+    const [imagePreview, setImagePreview] = React.useState<string>("")
 
     useEffect(() => {
         const getProduct = async () => {
             const { data } = await read(id);
+            setImagePreview(data.image)
             reset(data)
         }
         getProduct();
     }, [])
 
-    const onSubmit: SubmitHandler<FormInputs> = data => {
-        props.onUpdate(data)
-        navigate("/admin/product")
+    const imagePreviewHandle = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const fileImage = e.target.files;
+        if (fileImage) {
+            const file = fileImage[0];
+            const url = URL.createObjectURL(file);
+            setImagePreview(url);
+        }
+    }
+
+    const onSubmit: SubmitHandler<FormInputs> = async (data) => {
+        let flag = false;
+        let imageFile = ""
+        if (typeof data.image === "string") {
+            imageFile = imagePreview;
+            flag = true
+        } else {
+            const fomData = new FormData();
+            fomData.append("image", data.image[0]);
+            const response = await uploadImage(fomData);
+            imageFile = response.data.secure_url;
+            flag = true
+        }
+
+        if (flag) {
+            props.onUpdate({
+                ...data,
+                image: imageFile
+            })
+            navigate("/admin/product")
+        }
     }
     return (
         <div>
@@ -56,7 +85,8 @@ const ProductEdit = (props: ProductEditProps) => {
                                     </div>
                                     <div className="mb-3">
                                         <label className="block mb-1 font-semibold">Avatar</label>
-                                        <input type="text" {...register('image', { required: true })} className="px-[10px] py-1 border rounded w-full focus:outline-0" />
+                                        <img src={imagePreview} alt="" className='w-[100px] h-[100px] border-1 border-gray-300 mb-3' />
+                                        <input type="file" {...register('image')} className="px-[10px] py-1 border rounded w-full focus:outline-0" onChange={imagePreviewHandle} />
                                         {errors.image && <div className='text-red-700'>Không được để trống</div>}
                                     </div>
                                     <select {...register('category')} className='w-full border border-black rounded-md h-10'>

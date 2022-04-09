@@ -151,7 +151,7 @@ function App() {
                         </Route>
                         <Route path='about' element={<AboutPage />} />
                         <Route path='category/:id' element={<CategoryPage />} />
-                        <Route path='search' element={<SearchPage product={search} />} />
+                        <Route path='search' element={<SearchPage />} />
                         <Route path='cart' element={<CartPage onRemoveCart={onHandleRemoveCart} onDecreaseItemInCart={onHandleDecreaseItemInCart} onIncreaseItemInCart={onHandleIncreaseItemInCart} />} />
                     </Route>
                     <Route path='admin' element={<PrivateRouter><AdminLayout /></PrivateRouter>}>

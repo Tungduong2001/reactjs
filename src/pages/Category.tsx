@@ -42,7 +42,7 @@ const Category = (props: CategoryProps) => {
                                                     <th className='"px-6 py-3 max-w-[30px] w-[30px] text-center font-semibold"' >{index + 1}</th>
                                                     <td className="px-6 py-3 text-left">{item.name}</td>
                                                     <td className='px-6 py-3 text-right'>
-                                                        <button onClick={() => props.onRemoveCategory(item._id)}>Remove</button>
+                                                        <button onClick={() => props.onRemoveCategory(item._id!)}>Remove</button>
                                                     </td>
                                                 </tr>
                                             )

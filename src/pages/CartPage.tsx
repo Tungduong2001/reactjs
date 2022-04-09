@@ -37,7 +37,7 @@ const CartPage = (props: Props) => {
                             </tr>
                         </thead>
                         <tbody className="bg-white divide-y divide-gray-200">
-                            {cart && cart.map((item, index) => {
+                            {cart && cart.map((item: any, index: number) => {
                                 return <tr key={index}>
                                     <td className="px-6 py-3 max-w-[30px] w-[30px] text-center font-semibold">
                                         {index + 1}

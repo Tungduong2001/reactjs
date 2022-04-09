@@ -9,7 +9,7 @@ type Props = {
 
 const ProductDetail = (props: Props) => {
     const { id } = useParams();
-    const [products, setProducts] = useState<ProductType[]>([])
+    const [products, setProducts] = useState<ProductType>()
     useEffect(() => {
         const getOneProduct = async () => {
             const { data } = await read(id)
@@ -22,7 +22,7 @@ const ProductDetail = (props: Props) => {
         <div className='bg-white'>
             <div className="mx-auto w-[1200px]">
                 <div className="grid grid-cols-2 mb-3">
-                    <h2 className="font-bold text-xl ">{products.name}</h2>
+                    <h2 className="font-bold text-xl ">{products?.name}</h2>
                     <div className="mt-2 flex justify-end">
                         <Link to='' className="mt-1"></Link>
                         <Link to='' className="ml-2 text-sky-600 hover:underline relative hover:font-semibold">13 đánh giá</Link>
@@ -56,7 +56,7 @@ const ProductDetail = (props: Props) => {
                     </div>
                     <div className="detail">
                         <div className="flex ">
-                            <span className="text-red-700 font-semibold text-2xl mr-5 mt-2">{currencyPrice(products.price)}</span>
+                            <span className="text-red-700 font-semibold text-2xl mr-5 mt-2">{currencyPrice(products?.price!)}</span>
                             <span className="font-semibold text-lg line-through mt-3"></span>
                             <span className="ml-52">Trả góp chỉ từ 3.000.500₫/tháng</span>
                         </div>

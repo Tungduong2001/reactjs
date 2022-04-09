@@ -43,7 +43,6 @@ const HomePage = (props: HomePageProps) => {
       <Hot />
       <Service />
     </div>
-
   )
 }
 

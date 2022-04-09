@@ -12,9 +12,12 @@ const FormSearch = (props: Props) => {
     const { register, handleSubmit, formState: { errors } } = useForm<FormInputs>()
     const navigate = useNavigate()
     const onSubmit: SubmitHandler<FormInputs> = data => {
-        props.onSearch(data.name)
-        navigate(`/search?q=${data.name}`)
+        if (data.name) {
+            props.onSearch(data.name)
+            navigate(`/search?q=${data.name}`)
+        }
     }
+
     return (
         <div>
             <form action="" className="w-[700px] mt-5 pl-10 flex " onSubmit={handleSubmit(onSubmit)}>

@@ -19,13 +19,26 @@ export const add = (product: ProductType) => {
         }
     })
 }
+export const uploadImage = (body: any) => {
+    return instance({
+        url: `/upload-image`,
+        method: "POST",
+        data: body,
+        headers: { "Content-Type": "multipart/form-data" },
+    })
+}
 export const read = (id: any) => {
     const url = `/product/${id}`;
     return instance.get(url)
 }
 export const update = (product: any) => {
-    const url = `/product/${product._id}`;
-    return instance.put(url, product)
+    const { token, user } = isAuthenticate()
+    const url = `/product/${product._id}/${user._id}`;
+    return instance.put(url, product, {
+        headers: {
+            "Authorization": `Bearer ${token}`
+        }
+    })
 }
 
 export const searchProduct = (key: string) => {
