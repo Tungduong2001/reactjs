@@ -4,7 +4,6 @@ import { ProductType } from '../types/product'
 import { currencyPrice } from '../utils/formatMoney';
 import Banner from './conponentPageClient/Banner';
 import CateBox from './conponentPageClient/CateBox';
-import Highlight from './conponentPageClient/Highlight';
 import Hot from './conponentPageClient/Hot';
 import Service from './conponentPageClient/Service';
 
@@ -17,7 +16,6 @@ const HomePage = (props: HomePageProps) => {
   return (
     <div className='bg-red-700'>
       <Banner />
-      <Highlight />
       <CateBox />
       <div className=" bg-white border-8 rounded-md mt-5 mx-auto w-[1200px] pb-5">
         <p className=" text-[#cd1817] font-black text-lg uppercase ml-2 mt-4 mb-4">Sản phẩm</p>
