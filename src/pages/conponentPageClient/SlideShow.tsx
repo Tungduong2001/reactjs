@@ -54,22 +54,22 @@ const SlideShow = (props: Props) => {
                 className="my-slider-button"
             >
                 <SwiperSlide>
-                    <div>Text 1</div>
+                    <div>iPhone 13 Pro Max lì xì đến 6 triệu</div>
                 </SwiperSlide>
                 <SwiperSlide>
-                    <div>Text 2</div>
+                    <div>Sắm vivo lì xì đến 1,5 triệu</div>
                 </SwiperSlide>
                 <SwiperSlide>
-                    <div>Text 3</div>
+                    <div>Hàng gia dụng lì xì đến 6 triệu</div>
                 </SwiperSlide>
                 <SwiperSlide>
-                    <div>Text 4</div>
+                    <div>Laptop giảm ngay 10%+bảo hành đến 3 năm</div>
                 </SwiperSlide>
                 <SwiperSlide>
-                    <div>Text 3</div>
+                    <div>Đặt trước Redmi Note 11 giảm 500.000đ</div>
                 </SwiperSlide>
                 <SwiperSlide>
-                    <div>Text 4</div>
+                    <div>Sử dụng Xiaomi lì xì đến 6 triệu</div>
                 </SwiperSlide>
             </Swiper>
             {/* <Slide easing="ease"> */}
