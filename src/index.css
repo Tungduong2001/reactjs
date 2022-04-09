@@ -112,3 +112,29 @@
 #table td th{
     @apply border-black
 }
+
+.my-slider {
+    margin-bottom: 16px;
+}
+
+.my-slider .swiper-wrapper{
+    width: 1200px;
+    height: 400px;
+}
+.my-slider .swiper-wrapper img{
+    width: 100%;
+    object-fit: cover;
+}
+
+.my-slider-button .swiper-wrapper .swiper-slide {
+    border: 1px solid #efefef;
+    height: 60px;
+}
+
+.my-slider-button .swiper-wrapper .swiper-slide:hover {
+    cursor: pointer;
+    border-bottom: 4px solid brown;
+}
+.my-slider-button .swiper-wrapper .swiper-slide.swiper-slide-thumb-active {
+    border-bottom: 4px solid brown;
+}
