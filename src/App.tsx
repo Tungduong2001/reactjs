@@ -28,9 +28,14 @@ import Search from './pages/FormSearch'
 import SearchPage from './pages/SearchPage'
 import { addToCart, decreaseItemInCart, increaseItemInCart, removeItemInCart } from './utils/cart'
 import CartPage from './pages/CartPage'
+import { addSlide, listSlide, removeSlide, updateSlide } from './api/slide'
+import SlideShow from './pages/SlideShow'
+import { SlideType } from './types/slide'
+import SlideShowEdit from './pages/SlideShowEdit'
 function App() {
     const [products, setProducts] = useState<ProductType[]>([]);
     const [category, setCategories] = useState<CategoryType[]>([]);
+    const [slideshow, setSlideshows] = useState<SlideType[]>([]);
     const [users, setUsers] = useState<UserType[]>([]);
     const [search, setSearch] = useState<ProductType[]>([]);
     const [cart, setCart] = useState<ProductType[]>([]);
@@ -50,11 +55,15 @@ function App() {
 
         const getUser = async () => {
             const { data } = await ListUsers();
-            console.log(data);
-
             setUsers(data)
         }
         getUser();
+
+        const getSlide = async () => {
+            const { data } = await listSlide();
+            setSlideshows(data)
+        }
+        getSlide();
     }, []);
 
     const onHandleAdd = async (product: any) => {
@@ -129,6 +138,31 @@ function App() {
             setCart(JSON.parse(localStorage.getItem('cart') as string))
         })
     }
+
+    const onHandleAddSlide = async (slide: any) => {
+        const { data } = await addSlide(slide)
+        toast.success(` Thêm thành công`)
+        setSlideshows([...slideshow, data])
+
+    }
+
+    const onHandleRemoveSlide = async (id: number) => {
+        const confirm = window.confirm('Bạn có muốn xóa không?');
+        if (confirm) {
+            removeSlide(id)
+            setSlideshows(slideshow.filter(item => item._id !== id))
+        }
+    }
+
+    const onHandleUpdateSlide = async (slide: any) => {
+        try {
+            const { data } = await updateSlide(slide)
+            toast.success(` Cập nhật thành công`)
+            setSlideshows(slideshow.map(item => item._id === data._id ? slide : item))
+        } catch (error) {
+
+        }
+    }
     return (
         <div className='App'>
             {/* <header>
@@ -144,7 +178,7 @@ function App() {
             <main>
                 <Routes>
                     <Route path='/' element={<ClientLayout category={category} search={onHandleSearch} />}>
-                        <Route index element={<HomePage onAddToCart={onHandleAddToCart} products={products} />} />
+                        <Route index element={<HomePage onAddToCart={onHandleAddToCart} products={products} slideShow={slideshow} />} />
                         <Route path='product'>
                             <Route index element={<ProductPage />} />
                             <Route path=':id' element={<ProductDetail />} />
@@ -152,7 +186,9 @@ function App() {
                         <Route path='about' element={<AboutPage />} />
                         <Route path='category/:id' element={<CategoryPage />} />
                         <Route path='search' element={<SearchPage />} />
-                        <Route path='cart' element={<CartPage onRemoveCart={onHandleRemoveCart} onDecreaseItemInCart={onHandleDecreaseItemInCart} onIncreaseItemInCart={onHandleIncreaseItemInCart} />} />
+                        <Route path='cart' >
+                            <Route index element={<CartPage onRemoveCart={onHandleRemoveCart} onDecreaseItemInCart={onHandleDecreaseItemInCart} onIncreaseItemInCart={onHandleIncreaseItemInCart} />} />
+                        </Route>
                     </Route>
                     <Route path='admin' element={<PrivateRouter><AdminLayout /></PrivateRouter>}>
                         <Route index element={<Navigate to="/admin/dashboard" />} />
@@ -167,6 +203,10 @@ function App() {
                         </Route>
                         <Route path='category'>
                             <Route index element={<Category onRemoveCategory={onHandleRemoveCate} category={category} onAddCategory={onHandleAddCate} />} />
+                        </Route>
+                        <Route path='slide'>
+                            <Route index element={<SlideShow onAdd={onHandleAddSlide} slide={slideshow} onRemoveSlide={onHandleRemoveSlide} />} />
+                            <Route path='edit/:id' element={<SlideShowEdit onUpdateSlide={onHandleUpdateSlide} slide={slideshow} />} />
                         </Route>
                     </Route>
                     <Route path='login' element={<Signin />} />
